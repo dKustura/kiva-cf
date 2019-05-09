@@ -15,7 +15,7 @@ from implicit.bpr import BayesianPersonalizedRanking
 from implicit.nearest_neighbours import (BM25Recommender, CosineRecommender,
                                          TFIDFRecommender, bm25_weight)
 from implicit.datasets.movielens import get_movielens
-from implicit.evaluation import precision_at_k, train_test_split
+from implicit.evaluation import precision_at_k, mean_average_precision_at_k, train_test_split
 
 # utilities
 import codecs
@@ -43,8 +43,11 @@ def main():
     model = AlternatingLeastSquares(use_gpu=True)
     model.fit(train)
 
-    mean_roc_auc = mean_roc_auc_at_k(model, train_user_items, test_user_items, K=10)
-    print(">> Mean ROC AUC score: ", mean_roc_auc)
+    # mean_roc_auc = mean_roc_auc_at_k(model, train_user_items, test_user_items, K=10)
+    # print(">> Mean ROC AUC score: ", mean_roc_auc)
+
+    prec_at_k = mean_average_precision_at_k(model, train_user_items, test_user_items, K=10)
+    print(">> Precision @ 10: ", prec_at_k)
 
 if __name__ == '__main__':
     main()
