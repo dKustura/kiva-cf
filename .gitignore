@@ -124,3 +124,4 @@ dmypy.json
 
 additional-kiva-snapshot/*
 pickle/*
+kiva_dataframe.csv
